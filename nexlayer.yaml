@@ -1,0 +1,27 @@
+application:
+  name: keystone
+  pods:
+  - name: app
+    image: node:20-alpine
+    path: /
+    servicePorts:
+    - 3000
+    vars:
+      DATABASE_URL: "postgresql://keystone:keystone@postgres.pod:5432/keystone"
+      SESSION_SECRET: "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4"
+    volumes:
+    - name: keystone-data
+      mountPath: /app/.keystone
+      size: 5Gi
+  - name: postgres
+    image: postgres:16-alpine
+    servicePorts:
+    - 5432
+    vars:
+      POSTGRES_DB: keystone
+      POSTGRES_USER: keystone
+      POSTGRES_PASSWORD: keystone
+    volumes:
+    - name: keystone-db
+      mountPath: /var/lib/postgresql/data
+      size: 5Gi
