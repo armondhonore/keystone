@@ -2,7 +2,7 @@ application:
   name: keystone
   pods:
   - name: app
-    image: node:20-alpine
+    image: mirror.gcr.io/library/node:20-alpine
     path: /
     servicePorts:
     - 3000
@@ -14,7 +14,7 @@ application:
       mountPath: /app/.keystone
       size: 5Gi
   - name: postgres
-    image: postgres:16-alpine
+    image: mirror.gcr.io/library/postgres:16-alpine
     servicePorts:
     - 5432
     vars:
